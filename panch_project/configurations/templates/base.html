@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}Base Title{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'client_list' %}">Clients</a> |
+            <a href="{% url 'call_list' %}">Call Records</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Контент каждой страницы -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Django App</p>
+    </footer>
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>

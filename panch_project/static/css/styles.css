@@ -1,0 +1,70 @@
+/* styles.css */
+
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f7fa; /* Светло-голубой фон */
+}
+
+h1 {
+    color: #00796b; /* Тёмно-бирюзовый цвет заголовков */
+    text-align: center;
+}
+
+/* Стили для форм */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Белый фон для формы */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    background-color: #00796b; /* Тёмно-бирюзовый фон для кнопки */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #004d40; /* Темнее при наведении */
+}
+
+/* Стили для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc; /* Светло-серые границы */
+}
+
+th {
+    background-color: #f0f0f0; /* Светло-серый фон для заголовков таблиц */
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        background-color: lightblue; /* Измените цвет для теста */
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    table {
+        font-size: 14px; /* Уменьшение шрифта на меньших экранах */
+    }
+}

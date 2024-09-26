@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Добавьте эту строку -->
+
+{% block content %}
+    <h1>Call Records</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Channel</th>
+                <th>Location</th>
+                <th>State</th>
+                <th>Calling number</th>
+            </tr>
+        </thead>
+        <tbody id="call-records-table">
+            {% for record in call_records %}
+            <tr>
+                <td data-label="Channel">{{ record.channel }}</td>
+                <td data-label="Location">{{ record.location }}</td>
+                <td data-label="State">{{ record.state }}</td>
+                <td data-label="Calling number">{{ record.calling_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p id="error-message" style="color: red;"></p>
+
+    <script>
+        const baseUrl = window.location.origin; // Получаем базовый URL (например, http://127.0.0.1:4000)
+        const updateUrl = `${baseUrl}/calls/get_call_records/`; // Формируем полный путь для API
+    </script>
+    <script src="{% static 'js/update_call_records.js' %}"></script>
+{% endblock %}

@@ -5,40 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e154405d-2825-4238-ac2c-b1e3e2afc024" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/django_calls.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/migrations/0002_callrecord.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/add_client.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/call_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/client_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/edit_client.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/db.sqlite3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/panch_project/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/panch_project/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/panch_project/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/panch_project/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/panch_project/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/static/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/static/js/update_call_records.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/structure.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/client_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/client_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/panch_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/panch_project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/static/js/update_call_records.js" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/static/js/update_call_records.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/structure.txt" beforeDir="false" afterPath="$PROJECT_DIR$/structure.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,15 +39,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "working"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="django_calls" />
@@ -123,10 +97,6 @@
           <url>file://$PROJECT_DIR$/main.py</url>
           <line>8</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/panch_project/configurations/views.py</url>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

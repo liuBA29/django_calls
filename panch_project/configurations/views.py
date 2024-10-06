@@ -1,7 +1,7 @@
 import paramiko
 import re
 
-from django.core.checks import messages
+from django.contrib import messages
 from django.http import JsonResponse
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,6 +9,26 @@ from .models import *
 from .forms import ClientForm
 
 
+# Пример данных для разных запросов
+content_list = [
+    "Обновлённое содержимое страницы1",
+    "Обновлённое содержимое страницы2",
+    "Обновлённое содержимое страницы3",
+]
+
+current_index = 0  # Переменная для отслеживания текущего индекса
+
+
+def get_dynamic_data(request):
+    global current_index
+    # Получаем текущий контент
+    new_content = content_list[current_index]
+
+    # Обновляем индекс для следующего запроса
+    current_index = (current_index + 1) % len(content_list)  # Вернемся к 0, если достигнем конца списка
+
+    # Возвращаем данные в формате JSON
+    return JsonResponse({'new_content': new_content})
 
 def get_call_records_view(request):
     call_records, error_message = get_call_records()
@@ -77,6 +97,9 @@ def extract_calling_number(application_data):
             return parts[0].split('/')[1]  # Извлекаем номер
     return None
 
+
+def home(request):
+        return render(request, 'configurations/home.html')
 
 def call_list(request):
     call_records, error_message = get_call_records()

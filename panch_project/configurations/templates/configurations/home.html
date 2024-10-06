@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %} <!-- Добавьте эту строку -->
+
+{% block content %}
+    <h1>Home динамическая страница</h1>
+<div id="dynamic-content">
+        Загрузка данных...
+    </div>
+    <script src="{% static 'js/update_call_records.js' %}"></script>
+{% endblock %}

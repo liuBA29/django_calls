@@ -30,6 +30,23 @@ def get_dynamic_data(request):
     # Возвращаем данные в формате JSON
     return JsonResponse({'new_content': new_content})
 
+
+def check_incoming_calls(request):
+    call_records, error_message = get_call_records()  # Get the call records from your existing function
+
+    if error_message:
+        return JsonResponse({'error': error_message}, status=500)
+
+    # Check if there are any call records
+    if call_records:
+        # Get the calling number of the last call or the first one based on your logic
+        calling_numbers = [record.calling_number for record in call_records if record.calling_number]
+        if calling_numbers:
+            return JsonResponse({'message': f'Вам звонят с номера {calling_numbers[0]}.'})
+
+    return JsonResponse({'message': 'Нет новых звонков.'})
+
+
 def get_call_records_view(request):
     call_records, error_message = get_call_records()
 
@@ -85,6 +102,11 @@ def get_call_records():
         return call_records, None
     except Exception as e:
         return [], "Не удалось подключиться к Астериск:" + str(e)
+
+
+
+
+
 
 def extract_calling_number(application_data):
     # Пример формата строки:

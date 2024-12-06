@@ -68,3 +68,43 @@ th {
         font-size: 14px; /* Уменьшение шрифта на меньших экранах */
     }
 }
+
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Центрирование сообщений */
+}
+
+.messages p {
+    padding: 15px;
+    margin: 20px auto; /* Центрирование по вертикали */
+    width: 80%; /* Задаём ширину сообщения */
+    max-width: 600px; /* Ограничиваем максимальную ширину */
+    background-color: #d4edda; /* Зеленый цвет для успешных сообщений */
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    font-size: 18px;
+    border-radius: 8px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для сообщения */
+    animation: fadeIn 0.5s ease-in-out; /* Анимация появления */
+}
+
+/* Для сообщений об ошибках */
+.messages li.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+/* Добавление анимации для плавного появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+

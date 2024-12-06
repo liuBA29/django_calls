@@ -91,11 +91,18 @@ def get_call_records():
             if len(parts) > 3:  # Проверяем, что строка валидная
                 application_data = ' '.join(parts[7:8])  # Объединяем оставшуюся часть
                 calling_number = extract_calling_number(application_data)  # Извлекаем номер
+
+                #ищем клиента с этим номером или контакт
+                client = Client.objects.filter(phone=calling_number).first()
+                client_image= client.image.url if client and client.image else None
+
+
                 call_records.append(CallRecord(
                     channel=parts[0],
                     location=parts[1],
                     state=parts[2],
                     calling_number=application_data,
+                    client_image=client_image,
 
                 ))
 
@@ -142,7 +149,7 @@ def client_list(request):
 
 def add_client(request):
     if request.method == 'POST':
-        form = ClientForm(request.POST)
+        form = ClientForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('client_list')
@@ -154,7 +161,7 @@ def add_client(request):
 def edit_client(request, pk):
     client = get_object_or_404(Client, pk=pk)
     if request.method == "POST":
-        form = ClientForm(request.POST, instance=client)
+        form = ClientForm(request.POST, request.FILES, instance=client)
         if form.is_valid():
             form.save()
             return redirect('client_list')
@@ -162,3 +169,33 @@ def edit_client(request, pk):
         form=ClientForm(instance=client)
     return render(request, 'configurations/edit_client.html', {'form':form})
 
+def delete_client(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    if request.method == "POST":
+        client.delete()  # Удаляем клиента
+        messages.success(request, f"Client {client.name} successfully deleted.")
+        return redirect('client_list')  # Перенаправляем на список клиентов
+    return render(request, 'configurations/delete_client.html', {'client': client})
+
+
+def check_incoming_calls(request):
+    call_records, error_message = get_call_records()  # Get the call records from your existing function
+
+    if error_message:
+        return JsonResponse({'error': error_message}, status=500)
+
+    # Check if there are any call records
+    if call_records:
+        # Get the calling number of the last call
+        calling_number = call_records[0].calling_number  # Assuming you want the first call record
+
+        # Check if a client exists with the calling number
+        try:
+            client = Client.objects.get(phone=calling_number)
+            message = f"Звонит клиент: {client.name}"
+        except Client.DoesNotExist:
+            message = f"Вам звонят с номера {calling_number}."
+
+        return JsonResponse({'message': message})
+
+    return JsonResponse({'message': 'Нет новых звонков.'})

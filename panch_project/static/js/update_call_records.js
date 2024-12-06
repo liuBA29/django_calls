@@ -1,4 +1,3 @@
-
 async function fetchCallRecords() {
     try {
         const response = await fetch('/calls/get_call_records/');
@@ -20,9 +19,28 @@ function updateDynamicContent(callRecords) {
         dynamicContentDiv.innerHTML = 'Нет входящих звонков.';
     } else {
         callRecords.forEach(record => {
-            const message = document.createElement('div');
-            message.innerText = `Вам звонят с номера: ${record.calling_number}`;
-            dynamicContentDiv.appendChild(message);
+            const messageDiv = document.createElement('div');
+            messageDiv.style.display = 'flex';
+            messageDiv.style.alignItems = 'center';
+            messageDiv.style.marginBottom = '10px';
+
+            // Если у записи есть изображение, добавляем его
+            if (record.client_image) {
+                const imageElement = document.createElement('img');
+                imageElement.src = record.client_image;
+                imageElement.alt = 'Client Image';
+                imageElement.style.width = '50px';
+                imageElement.style.height = '50px';
+                imageElement.style.borderRadius = '50%';
+                imageElement.style.marginRight = '10px';
+                messageDiv.appendChild(imageElement);
+            }
+
+            const textElement = document.createElement('span');
+            textElement.innerText = `Звонит клиент: ${record.client_name}`;
+            messageDiv.appendChild(textElement);
+
+            dynamicContentDiv.appendChild(messageDiv);
         });
     }
 }

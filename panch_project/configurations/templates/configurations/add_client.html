@@ -22,9 +22,9 @@
         <input type="checkbox" name="is_active" id="id_is_active" {% if form.is_active.value %}checked{% endif %}>
     </div>
 
-    <div>
+   <div>
         <label for="id_contact_info_phone">Phone</label>
-        <input type="text" name="contact_info_phone" id="id_contact_info_phone" value="{{ form.contact_info_phone.value }}">
+        <input type="text" name="contact_info_phone" id="id_contact_info_phone" placeholder="Enter your phone number" value="{{ form.contact_info_phone.value }}">
     </div>
 
     <div>

@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
+{% load static %} <!-- Добавьте эту строку -->
 
-{% block title %}Home page{% endblock %}
+{% block title %}Client List{% endblock %}
 
 {% block content %}
-<h1>Все клиенты</h1>
+<h1>All Clients</h1>
 <table>
     <thead>
         <tr>
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Is Active</th> <!-- Add this column for is_active -->
             <th>Image</th>
             <th>Actions</th>
         </tr>
@@ -18,25 +18,37 @@
     <tbody>
         {% for client in clients %}
         <tr>
-            <td>{{ client.name }}</td>
-            <td>{{ client.contact_info.phone }}</td>  <!-- Accessing phone from ContactInfo -->
-            <td>{{ client.contact_info.email }}</td>  <!-- Accessing email from ContactInfo -->
-            <td>{{ client.is_active|yesno:"Yes,No" }}</td>  <!-- Display "Yes" or "No" based on is_active -->
-            {% if client.image %}
+            <td><a href="{% url 'client_detail' client.pk %}">{{ client.name }}</a></td>
+            <td>{{ client.contact_info.phone }}</td>
+            <td>{{ client.contact_info.email }}</td>
             <td>
-                <img src="{{ client.image.url }}" alt="{{ client.name }}" width="50" height="50">
+                {% if client.image %}
+                    <img src="{{ client.image.url }}" alt="{{ client.name }}" width="50" height="50" class="thumbnail" onclick="openImageModal('{{ client.image.url }}')">
+                {% else %}
+                    No image
+                {% endif %}
             </td>
-            {% else %}
-            <td>No image</td>
-            {% endif %}
             <td>
-                <a href="{% url 'edit_client' client.pk %}">Edit  /</a>
-                <a href="{% url 'delete_client' client.pk %}">  Delete</a>
+                <a href="{% url 'edit_client' client.pk %}">Edit</a> /
+                <a href="{% url 'delete_client' client.pk %}">Delete</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
 <br>
 <a href="{% url 'add_client' %}">Add New Client</a>
+
+<!-- Modal for image preview -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeImageModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div id="caption"></div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/modal.js' %}"></script>
 {% endblock %}

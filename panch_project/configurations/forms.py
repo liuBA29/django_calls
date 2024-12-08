@@ -11,7 +11,7 @@ class ContactInfoForm(forms.ModelForm):
         fields = ['phone', 'email', 'address']
 
 class ClientForm(forms.ModelForm):
-    contact_info_phone = forms.CharField(max_length=20, required=False)
+    contact_info_phone = forms.CharField(max_length=20, required=False,  widget=forms.TextInput(attrs={'placeholder': 'Enter your phone number'}))
     contact_info_email = forms.EmailField(required=False)
     contact_info_address = forms.CharField(max_length=255, required=False)
 

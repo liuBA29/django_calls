@@ -50,3 +50,7 @@ def delete_client(request, pk):
     return render(request, 'configurations/delete_client.html', {'client': client})
 
 
+def client_detail(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    return render(request, 'configurations/client_detail.html', {'client': client})
+

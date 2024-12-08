@@ -108,3 +108,48 @@ th {
     }
 }
 
+
+/* modal window styles*/
+/* Стиль для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Черный фон с прозрачностью */
+    overflow: hidden; /* Запрещаем прокрутку */
+    text-align: center;
+}
+
+/* Модальное изображение */
+.modal-content {
+    max-width: 90%;
+    max-height: 80%;
+    margin: auto;
+    display: block;
+    border: 2px solid white;
+}
+
+/* Закрытие кнопки */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+

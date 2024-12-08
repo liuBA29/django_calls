@@ -7,20 +7,6 @@
         Загрузка данных...
     </div>
 <div id="notification" style="color: green;"></div>
-    <script src="{% static 'js/update_call_records.js' %}"></script>
-    <script>
-        function checkForIncomingCalls() {
-            fetch('/check_incoming_calls/')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        document.getElementById('notification').innerText = data.message;
-                    }
-                })
-                .catch(error => console.error('Ошибка:', error));
-        }
 
-        // Call this function every 5 seconds (5000 milliseconds)
-        setInterval(checkForIncomingCalls, 5000);
-    </script>
+
 {% endblock %}

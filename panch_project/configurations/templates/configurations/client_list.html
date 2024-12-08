@@ -10,6 +10,7 @@
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
+            <th>Is Active</th> <!-- Add this column for is_active -->
             <th>Image</th>
             <th>Actions</th>
         </tr>
@@ -18,14 +19,16 @@
         {% for client in clients %}
         <tr>
             <td>{{ client.name }}</td>
-            <td>{{ client.phone }}</td>
-            <td>{{ client.email }}</td>
+            <td>{{ client.contact_info.phone }}</td>  <!-- Accessing phone from ContactInfo -->
+            <td>{{ client.contact_info.email }}</td>  <!-- Accessing email from ContactInfo -->
+            <td>{{ client.is_active|yesno:"Yes,No" }}</td>  <!-- Display "Yes" or "No" based on is_active -->
             {% if client.image %}
-            <TD>
-    <img src="{{ client.image.url }}" alt="{{ client.name }}" width="50" height="50"></TD>
-{% else %}
-    <td>No image</td>
-{% endif %}
+            <td>
+                <img src="{{ client.image.url }}" alt="{{ client.name }}" width="50" height="50">
+            </td>
+            {% else %}
+            <td>No image</td>
+            {% endif %}
             <td>
                 <a href="{% url 'edit_client' client.pk %}">Edit  /</a>
                 <a href="{% url 'delete_client' client.pk %}">  Delete</a>
@@ -37,4 +40,3 @@
 <br>
 <a href="{% url 'add_client' %}">Add New Client</a>
 {% endblock %}
-

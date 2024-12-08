@@ -1,3 +1,4 @@
+<!-- base.html -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,6 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block title %}Base Title{% endblock %}</title>
+    <style>
+        /* Стили для фиксированного уведомления */
+        .asterisk-connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .asterisk-connection-status.failure {
+            background-color: #dc3545;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,21 +40,23 @@
         <!-- Контент каждой страницы -->
         {% endblock %}
 
-        <!-- Блок сообщений -->
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
+        <!-- Блок уведомления о соединении с Asterisk -->
+        {% if is_connected is not None %}
+    <div class="asterisk-status {% if is_connected %}success{% else %}failure{% endif %}">
+        {% if is_connected %}
+            <p>Connected to Asterisk successfully!</p>
+        {% else %}
+            <p>Connection to Asterisk failed.</p>
         {% endif %}
+    </div>
+{% endif %}
+
+
+        {% block extra_js %}{% endblock %}
     </main>
 
     <footer>
         <p>&copy; 2024 My Django App</p>
     </footer>
-
-    {% block extra_js %}
-    {% endblock %}
 </body>
 </html>

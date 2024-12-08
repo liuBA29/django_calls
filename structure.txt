@@ -16,7 +16,6 @@ django_calls/               # Корневая папка проекта
 │   │   │   └── configurations
 │   │   │       └── home.html
 │   │   │       └── client_list.html
-│   │   │       └── call_records.html  # Шаблон для отображения звонков
 │   │   │       └── edit_client.html
 │   │   │       └── add_client.html
 │   ├── panch_project/      # Основная папка проекта (с настройками)
@@ -30,7 +29,8 @@ django_calls/               # Корневая папка проекта
 │   ├── static/             # Папка для статических файлов (CSS, JS, изображения и т.д.)
 │   │   ├── css/            # Пример папки для CSS
 │   │   ├── js/             # Пример папки для JS
-|   |   |     └── update_call_records.js  # Твой скрипт
+|   |   |     └── client_details.js.js
+|   |   |     └── modal.js.js
 │   │   └── images/         # Пример папки для изображений
 │
 │   ├── db.sqlite3          # SQLite база данных (по умолчанию)

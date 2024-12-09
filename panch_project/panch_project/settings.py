@@ -1,5 +1,6 @@
 
 import os
+from decouple import config
 
 """
 Django settings for panch_project project.
@@ -23,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qoif^$j@f%#^9dsssphedk7aw7(^ji_(^2_j=m#omc)=vv95zg'
+SECRET_KEY = config('SECRET_KEY', default='temporary-key-for-local-use')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -80,7 +82,7 @@ WSGI_APPLICATION = 'panch_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / config('DATABASE_NAME' , 'db.sqlite3'),
     }
 }
 
@@ -135,6 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Настройки для Asterisk
-ASTERISK_HOST = '192.168.101.101'
-ASTERISK_USER = 'root'
-ASTERISK_PASSWORD = 'raspberry'  # Заменить на реальный пароль или использовать переменные окружения
+ASTERISK_HOST = config('ASTERISK_HOST', default='127.0.0.1')
+ASTERISK_PORT = config('ASTERISK_PORT', default=22, cast=int)
+ASTERISK_USERNAME = config('ASTERISK_USERNAME', default='root')
+ASTERISK_PASSWORD = config('ASTERISK_PASSWORD', default='')

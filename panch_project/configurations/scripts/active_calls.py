@@ -1,3 +1,6 @@
+#active_calls.py
+
+
 import paramiko
 from decouple import config
 
@@ -32,15 +35,24 @@ class AsteriskCalls:
     def check_active_calls(self):
         command = "asterisk -rx 'core show calls'"
         result = self._execute_command(command)
+        num_of_calls=0
 
         if result:
             # Найти строку, содержащую "active calls"
             for line in result.splitlines():
+
                 if "active call" in line:
                     print(line)
+                    num_of_calls+=1
+
+                    if "0 active calls" in line:
+                        num_of_calls=0
+
+                    return num_of_calls
                     break  # Можно остановиться, как только нашли нужную строку
         else:
             print("Не удалось получить информацию о звонках.")
+
 
 # Запуск проверки
 if __name__ == "__main__":

@@ -43,10 +43,15 @@
         <!-- Блок уведомления о соединении с Asterisk -->
         {% if is_connected is not None %}
     <div class="asterisk-status {% if is_connected %}success{% else %}failure{% endif %}">
-        {% if is_connected %}
+        {% if is_connected%}
             <p>Connected to Asterisk successfully!</p>
+            {% if is_active_call %}
+            <p>active call!</p>
+            {%else%}
+            <p>no active call</p>
+            {%endif%}
         {% else %}
-            <p>Connection to Asterisk failed.</p>
+            <p>Connection to Asterisk failed :(</p>
         {% endif %}
     </div>
 {% endif %}

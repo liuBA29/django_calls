@@ -1,4 +1,8 @@
+#asterisk_connection.py
+
 import paramiko
+from decouple import config
+
 
 class AsteriskConnection:
     def __init__(self, host, port, username, password):
@@ -38,6 +42,9 @@ class AsteriskConnection:
                 print(f"Error during command execution: {e}")
         return False
 
+
+
+
     def close_connection(self):
         if self.client:
             self.client.close()
@@ -46,10 +53,12 @@ class AsteriskConnection:
 # Пример использования
 if __name__ == "__main__":
     # Параметры подключения (их нужно настроить согласно вашему Asterisk серверу)
-    host = "192.168.101.101"  # IP удаленного сервера Asterisk
-    port = 22                  # Порт для SSH (по умолчанию 22)
-    username = "root"          # Логин для SSH подключения
-    password = "raspberry"      # Пароль для SSH подключения
+
+
+    host = config('ASTERISK_HOST')  # IP-адрес сервера
+    port = config('ASTERISK_PORT')  # Порт SSH (по умолчанию 22)
+    username = config('ASTERISK_USERNAME')  # Имя пользователя для подключения
+    password = config('ASTERISK_PASSWORD')  # Пароль для подключения
 
     # Создаем экземпляр подключения
     asterisk_conn = AsteriskConnection(host, port, username, password)
@@ -60,6 +69,8 @@ if __name__ == "__main__":
     # Проверяем состояние соединения
     if asterisk_conn.check_connection():
         print("Asterisk is connected.")
+
+
     else:
         print("Asterisk connection failed.")
 

@@ -1,27 +1,34 @@
 
 #  views.py
 
-
+from decouple import config
 import paramiko
 import re
+from django.conf import settings
 
 from django.contrib import messages
 from django.http import JsonResponse
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import *
+from configurations.models import *
 from .forms import ClientForm
 from configurations.scripts.asterisk_connection import  AsteriskConnection
+from configurations.scripts.active_calls import AsteriskCalls
 
 ## asterisk connection
+host = config('ASTERISK_HOST')  # IP-адрес сервера
+port = config('ASTERISK_PORT', cast=int, default=22)  # Порт SSH (по умолчанию 22)
+username = config('ASTERISK_USERNAME')  # Имя пользователя для подключения
+password = config('ASTERISK_PASSWORD')  # Пароль для подключения
+
+
+
+
+def get_active_calls():
+    is_active_call = AsteriskCalls()
+    return is_active_call.check_active_calls()
 
 def get_asterisk_connection_status():
-    """ Функция для проверки соединения с Asterisk """
-    host = "192.168.101.101"  # IP удаленного сервера Asterisk
-    port = 22                  # Порт для SSH (по умолчанию 22)
-    username = "root"          # Логин для SSH подключения
-    password = "raspberry"     # Пароль для SSH подключения
-
     # Создаем экземпляр подключения
     asterisk_conn = AsteriskConnection(host, port, username, password)
 
@@ -32,27 +39,41 @@ def get_asterisk_connection_status():
     is_connected = asterisk_conn.check_connection()
     print("is connected")
 
+
     # Закрываем соединение
     asterisk_conn.close_connection()
 
     return is_connected
 
-def home(request):
-    # Проверяем соединение с Asterisk
-    is_connected = get_asterisk_connection_status()
+#=========================================================================
+# общие переменные
+is_connected = get_asterisk_connection_status()
+is_active_call = get_active_calls()
+clients = Client.objects.all()
 
-    # Передаем статус соединения в контекст
-    return render(request, 'configurations/home.html', {'is_connected': is_connected})
+#  отсюда функции отображений
+def home(request):
+    context = {
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+    }
+    return render(request, 'configurations/home.html', context)
 
 def call_list(request):
-    is_connected = get_asterisk_connection_status()
-    return render(request, 'configurations/call_list.html', {'is_connected': is_connected})
+    context = {
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+    }
+    return render(request, 'configurations/call_list.html', context)
 
 
 def client_list(request):
-    is_connected = get_asterisk_connection_status()
-    clients = Client.objects.all()  # Получаем всех клиентов
-    return render(request, 'configurations/client_list.html', {'clients': clients, 'is_connected': is_connected}, )
+    context = {
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+        'clients':clients,
+    }
+    return render(request, 'configurations/client_list.html', context)
 
 def add_client(request):
     if request.method == 'POST':
@@ -62,7 +83,14 @@ def add_client(request):
             return redirect('client_list')
     else:
         form = ClientForm()
-    return render(request, 'configurations/add_client.html', {'form':form})
+
+    context = {
+        'form': form,
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+        'clients': clients,
+    }
+    return render(request, 'configurations/add_client.html', context)
 
 
 def edit_client(request, pk):
@@ -74,7 +102,13 @@ def edit_client(request, pk):
             return redirect('client_list')
     else:
         form=ClientForm(instance=client)
-    return render(request, 'configurations/edit_client.html', {'form':form})
+    context = {
+        'form': form,
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+        'client': client,
+    }
+    return render(request, 'configurations/edit_client.html', context)
 
 def delete_client(request, pk):
     client = get_object_or_404(Client, pk=pk)
@@ -82,10 +116,20 @@ def delete_client(request, pk):
         client.delete()  # Удаляем клиента
         messages.success(request, f"Client {client.name} successfully deleted.")
         return redirect('client_list')  # Перенаправляем на список клиентов
-    return render(request, 'configurations/delete_client.html', {'client': client})
+    context = {
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+        'client': client,
+    }
+    return render(request, 'configurations/delete_client.html', context)
 
 
 def client_detail(request, pk):
     client = get_object_or_404(Client, pk=pk)
-    return render(request, 'configurations/client_detail.html', {'client': client})
+    context = {
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+        'client': client,
+    }
+    return render(request, 'configurations/client_detail.html', context)
 

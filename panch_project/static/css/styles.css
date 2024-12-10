@@ -166,5 +166,9 @@ th {
     z-index: 9999;
 }
 
+.asterisk-status.failure {
+        background-color: rgba(120, 120, 120, 0.4);; /* Серый цвет для неудачного соединения */
+    }
+
 
 

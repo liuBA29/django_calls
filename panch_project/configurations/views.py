@@ -59,12 +59,7 @@ def home(request):
     }
     return render(request, 'configurations/home.html', context)
 
-def call_list(request):
-    context = {
-        'is_connected': is_connected,
-        'is_active_call': is_active_call,
-    }
-    return render(request, 'configurations/call_list.html', context)
+
 
 
 def client_list(request):
@@ -133,3 +128,11 @@ def client_detail(request, pk):
     }
     return render(request, 'configurations/client_detail.html', context)
 
+
+#=====================звонки===============
+def call_list(request):
+    context = {
+        'is_connected': is_connected,
+        'is_active_call': is_active_call,
+    }
+    return render(request, 'configurations/call_list.html', context)

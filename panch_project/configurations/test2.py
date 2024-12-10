@@ -1,50 +1,30 @@
 import paramiko
-from configurations.models import *
-def get_call_records():
-    try:
-        # Подключение к Asterisk через SSH
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect('192.168.101.101', username='root', password='raspberry')
+from decouple import config
 
-        # Выполнение команды Asterisk
-        stdin, stdout, stderr = ssh.exec_command('asterisk -rx "core show channels verbose"')
-        cdr_output = stdout.read().decode()
-        error_output = stderr.read().decode()
 
-        ssh.close()
+def get_asterisk_call_info():
+    # Устанавливаем соединение с сервером Asterisk
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(host, username=username, password=password)
 
-        # Проверка на ошибки
-        if error_output:
-            print("Ошибка:", error_output)
-            return [], error_output
+    # Выполняем команду для получения информации о текущих звонках
+    stdin, stdout, stderr = client.exec_command('asterisk -rx "core show calls"')
 
-        call_records = []
+    # Читаем результат
+    call_info = stdout.read().decode()
 
-        # Парсинг данных из Asterisk
-        for line in cdr_output.split('\n')[2:]:  # Пропускаем заголовки
-            parts = line.split()
-            if len(parts) > 3:  # Убедимся, что строка валидна
-                application_data = ' '.join(parts[7:8])  # Собираем данные
-                calling_number = extract_calling_number(application_data)  # Извлекаем номер телефона
+    # Выводим информацию о звонке в терминале
+    print(call_info)
 
-                # Ищем клиента с указанным номером
-                client = Client.objects.filter(phone=calling_number).first()
+    # Закрытие подключения
+    client.close()
 
-                call_records.append({
-                    'channel': parts[0],
-                    'location': parts[1],
-                    'state': parts[2],
-                    'calling_number': calling_number,
-                    'client_name': client.name if client else f"Неизвестный номер ({calling_number})",
-                    'client_email': client.email if client else None,
-                    'client_image': client.image.url if client and client.image else None,
-                })
+host = config('ASTERISK_HOST')  # IP-адрес сервера
+port = config('ASTERISK_PORT')  # Порт SSH (по умолчанию 22)
+username = config('ASTERISK_USERNAME')  # Имя пользователя для подключения
+password = config('ASTERISK_PASSWORD')  # Пароль для подключения
 
-        return call_records, None
+# Вызов функции для получения информации о звонке
+get_asterisk_call_info()
 
-    except Exception as e:
-        # Обработка ошибок
-        return [], f"Не удалось подключиться к Asterisk: {str(e)}"
-
-        return [], "Не удалось подключиться к Астериск: " + str(e)

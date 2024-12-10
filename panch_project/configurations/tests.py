@@ -1,64 +1,75 @@
 import paramiko
 from decouple import config
-import re
 
-class AsteriskCallerID:
-    def __init__(self):
-        self.host = config('ASTERISK_HOST')
-        self.port = config('ASTERISK_PORT', cast=int, default=22)
-        self.username = config('ASTERISK_USERNAME')
-        self.password = config('ASTERISK_PASSWORD')
 
-    def _execute_command(self, command):
-        try:
-            print(f"Подключение к {self.host}:{self.port} с логином {self.username}...")
-            client = paramiko.SSHClient()
-            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            client.connect(self.host, port=self.port, username=self.username, password=self.password)
-            print("Соединение установлено.")
+def get_asterisk_call_info():
+    try:
+        # Устанавливаем соединение с сервером Asterisk
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        client.connect(host, username=username, password=password)
 
-            print(f"Выполнение команды: {command}")
-            stdin, stdout, stderr = client.exec_command(command)
-            output = stdout.read().decode()
-            error = stderr.read().decode()
-            client.close()
+        # Выполняем команду для получения информации о текущих звонках
+        stdin, stdout, stderr = client.exec_command('asterisk -rx "core show channels verbose"')
 
-            if error:
-                print(f"Ошибка выполнения команды: {error}")
-            else:
-                print(f"Вывод команды: {output}")
-            return output
-        except Exception as e:
-            print(f"Ошибка подключения: {e}")
-            return None
+        # Читаем результат
+        call_info = stdout.read().decode()
+        error_info = stderr.read().decode()
 
-    def get_caller_id(self):
-        command = "asterisk -rx 'core show channels'"
-        result = self._execute_command(command)
+        if error_info:
+            print(f"Ошибка выполнения команды: {error_info}")
+            return
 
-        if result:
-            print("Результат команды:")
-            print(result)
-
-            # Ищем номер звонящего в колонке Location
-            for line in result.splitlines():
-                print(f"Обрабатываем строку: {line}")
-                match = re.search(r'(\d+)@from-internal', line)
-                if match:
-                    caller_id = match.group(1)
-                    print(f"Номер звонящего: {caller_id}")
-                    return caller_id
-            print("Caller ID не найден.")
+        # Пример: извлекаем номера звонящих
+        active_calls = extract_calling_numbers(call_info)
+        if active_calls:
+            print(f"Номер звонящего: {', '.join(active_calls)}")
         else:
-            print("Не удалось получить информацию о звонках.")
-        return None
+            print("Нет активных звонков.")
+
+    except Exception as e:
+        print(f"Ошибка подключения или выполнения команды: {e}")
+
+    finally:
+        # Закрытие подключения
+        client.close()
 
 
-# Пример использования
-if __name__ == "__main__":
-    asterisk_caller = AsteriskCallerID()
-    caller_id = asterisk_caller.get_caller_id()
-    if caller_id:
-        print(f"Звонящий: {caller_id}")
-    else:
-        print("Нет активных звонков.")
+def extract_calling_numbers(call_info):
+    """
+    Функция для извлечения номеров звонящих из вывода команды.
+    """
+    calling_numbers = []
+
+    # Разбираем строки, полученные из вывода команды
+    for line in call_info.splitlines():
+        if "Dial" in line:
+            parts = line.split(',')
+            if len(parts) > 1:
+                # Извлекаем номер звонящего из части строки, которая выглядит как 'SIP/12,20,...'
+                number = extract_calling_number(parts[0])
+                if number:
+                    calling_numbers.append(number)
+
+    return calling_numbers
+
+
+def extract_calling_number(application_data):
+    """
+    Функция для извлечения номера звонящего из строки.
+    Пример: 'Dial(SIP/12,,HhtrIb(func-apply))'
+    """
+    if "SIP" in application_data:
+        # Извлекаем номер звонящего из строки 'SIP/12'
+        return application_data.split('/')[1]
+    return None
+
+
+# Параметры подключения
+host = config('ASTERISK_HOST')  # IP-адрес сервера
+port = config('ASTERISK_PORT')  # Порт SSH (по умолчанию 22)
+username = config('ASTERISK_USERNAME')  # Имя пользователя для подключения
+password = config('ASTERISK_PASSWORD')  # Пароль для подключения
+
+# Вызов функции для получения информации о звонках
+get_asterisk_call_info()

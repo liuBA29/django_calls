@@ -18,6 +18,9 @@ django_calls/               # Корневая папка проекта
 │   │   │       └── client_list.html
 │   │   │       └── edit_client.html
 │   │   │       └── add_client.html
+│   │   ├── scripts/      # scripts
+│   │   |   └── active_calls.py
+│   │   │   └── asterisk_connection.py
 │   ├── panch_project/      # Основная папка проекта (с настройками)
 │   │   ├── __init__.py     # Пустой файл, чтобы Python распознавал папку как модуль
 │   │   ├── asgi.py         # Точка входа для ASGI-серверов
@@ -32,6 +35,6 @@ django_calls/               # Корневая папка проекта
 |   |   |     └── client_details.js.js
 |   |   |     └── modal.js.js
 │   │   └── images/         # Пример папки для изображений
-│
+│   |
 │   ├── db.sqlite3          # SQLite база данных (по умолчанию)
 │   └── manage.py           # Основная команда для управления проектом (запуск, миграции и т.д.)

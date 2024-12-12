@@ -14,6 +14,7 @@ from configurations.models import *
 from .forms import ClientForm
 from configurations.scripts.asterisk_connection import  AsteriskConnection
 from configurations.scripts.active_calls import AsteriskCalls
+from configurations.scripts.calling_number import CallingNumber
 
 ## asterisk connection
 host = config('ASTERISK_HOST')  # IP-адрес сервера
@@ -21,8 +22,9 @@ port = config('ASTERISK_PORT', cast=int, default=22)  # Порт SSH (по ум�
 username = config('ASTERISK_USERNAME')  # Имя пользователя для подключения
 password = config('ASTERISK_PASSWORD')  # Пароль для подключения
 
-
-
+def get_calling_number():
+    calling_number = CallingNumber(host, port, username, password)
+    return calling_number.get_asterisk_call_info()
 
 def get_active_calls():
     is_active_call = AsteriskCalls()
@@ -47,15 +49,19 @@ def get_asterisk_connection_status():
 
 #=========================================================================
 # общие переменные
-is_connected = get_asterisk_connection_status()
-is_active_call = get_active_calls()
-clients = Client.objects.all()
+
 
 #  отсюда функции отображений
 def home(request):
+    calling_number = get_calling_number()
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
+
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
+        'calling_number': calling_number,
     }
     return render(request, 'configurations/home.html', context)
 
@@ -63,14 +69,22 @@ def home(request):
 
 
 def client_list(request):
+    calling_number = get_calling_number()
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
         'clients':clients,
+        'calling_number':calling_number,
     }
     return render(request, 'configurations/client_list.html', context)
 
 def add_client(request):
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
     if request.method == 'POST':
         form = ClientForm(request.POST, request.FILES)
         if form.is_valid():
@@ -89,6 +103,9 @@ def add_client(request):
 
 
 def edit_client(request, pk):
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
     client = get_object_or_404(Client, pk=pk)
     if request.method == "POST":
         form = ClientForm(request.POST, request.FILES, instance=client)
@@ -106,6 +123,9 @@ def edit_client(request, pk):
     return render(request, 'configurations/edit_client.html', context)
 
 def delete_client(request, pk):
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
     client = get_object_or_404(Client, pk=pk)
     if request.method == "POST":
         client.delete()  # Удаляем клиента
@@ -120,6 +140,9 @@ def delete_client(request, pk):
 
 
 def client_detail(request, pk):
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
     client = get_object_or_404(Client, pk=pk)
     context = {
         'is_connected': is_connected,
@@ -131,8 +154,24 @@ def client_detail(request, pk):
 
 #=====================звонки===============
 def call_list(request):
+    is_connected = get_asterisk_connection_status()
+    is_active_call = get_active_calls()
+    clients = Client.objects.all()
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
     }
     return render(request, 'configurations/call_list.html', context)
+
+
+
+#==================call_status wiwth js script==================
+def get_call_status(request):
+    is_active_call = get_active_calls()
+    calling_number = get_calling_number()
+    context = {
+        'is_active_call': is_active_call,
+        'calling_number': calling_number,
+    }
+    return JsonResponse(context)
+

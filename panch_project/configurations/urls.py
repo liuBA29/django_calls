@@ -16,6 +16,8 @@ urlpatterns = [
     path('client/<int:pk>/', client_detail, name='client_detail'),
 
     path('calls/', call_list, name='call_list'),
+
+    path('get-call-status/', get_call_status, name='get_call_status'),
 ]
 
 if settings.DEBUG:

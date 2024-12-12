@@ -166,12 +166,34 @@ def call_list(request):
 
 
 #==================call_status wiwth js script==================
+
+
 def get_call_status(request):
-    is_active_call = get_active_calls()
     calling_number = get_calling_number()
-    context = {
-        'is_active_call': is_active_call,
+
+    # Если calling_number является списком и он не пустой, берем первый элемент
+    if isinstance(calling_number, list) and calling_number:
+        calling_number = calling_number[0]
+    else:
+        calling_number = None  # Если список пустой, устанавливаем calling_number как None
+
+    # Проверяем, если номер начинается с "+", удаляем его
+    if isinstance(calling_number, str) and calling_number.startswith('+'):
+        calling_number = calling_number[1:]
+
+    print(f"Полученный номер звонящего: {calling_number}")  # Выводим номер для отладки
+
+    # Поиск клиента по номеру телефона
+    client = Client.objects.filter(contact_info__phone=calling_number).first()
+    print(f"Найден клиент: {client.name if client else 'Не найден'}")  # Выводим имя клиента для отладки
+
+    response_data = {
+        'is_active_call': True,  # или ваша логика
         'calling_number': calling_number,
+        'client_name': client.name if client else None,
     }
-    return JsonResponse(context)
+
+    return JsonResponse(response_data)
+
+
 

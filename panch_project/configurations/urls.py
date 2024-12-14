@@ -20,6 +20,7 @@ urlpatterns = [
     path('get-call-status/', get_call_status, name='get_call_status'),
 
     path('random-number/', random_number_page, name='random_number'),
+    path('active-calls/', active_calls_page, name='active-calls'),
 ]
 
 if settings.DEBUG:

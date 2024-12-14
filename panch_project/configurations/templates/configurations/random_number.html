@@ -1,14 +1,13 @@
 <!-- random_number.html -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Number</title>
-</head>
-<body>
-   <h1 id="app"><{{text}}/h1>
+
+{% extends 'base.html' %}
+{% load static %}  <!-- Добавьте эту строку для использования статических файлов -->
+
+<title>Random Number</title>
+{% block content %}
+
+   <h1 id="app"><{{text}}</h1>
        <script>
     var socket = new WebSocket('ws://localhost:8000/ws/random-number/')
     socket.onmessage = function(event){
@@ -17,7 +16,10 @@
         document.querySelector('#app').innerText = data.message
     }
 </script>
-</body>
-</html>
+
+{% endblock %}
+
+
+
 
 

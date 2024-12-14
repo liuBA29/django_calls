@@ -1,0 +1,35 @@
+<!-- active_calls.html -->
+
+
+{% extends 'base.html' %}
+{% load static %}  <!-- Добавьте эту строку для использования статических файлов -->
+
+<title>active calls</title>
+{% block content %}
+
+   <h1 id="appp"><{{text}}</h1>
+<script>
+    const socket = new WebSocket('ws://127.0.0.1:8000/ws/active-calls/');
+
+    socket.onopen = function(e) {
+        console.log("Соединение установлено");
+    };
+
+    socket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log("Сообщение от сервера:", data);
+        document.querySelector('#appp').innerText = JSON.stringify(data);
+    };
+
+    socket.onerror = function(error) {
+        console.error("Ошибка WebSocket:", error);
+    };
+
+    socket.onclose = function(e) {
+        console.log("Соединение закрыто");
+    };
+</script>
+
+
+
+{% endblock %}

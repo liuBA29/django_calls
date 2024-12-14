@@ -22,7 +22,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'panch_project.settings')
 # application = get_asgi_application()
 application = ProtocolTypeRouter({
     'http': get_asgi_application(),
-    'websocket': AuthMiddlewareStack(
+    'websocket': SessionMiddlewareStack(
         URLRouter(ws_urlpatterns)
     )
 })

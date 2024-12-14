@@ -80,6 +80,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'panch_project.wsgi.application'
 ASGI_APPLICATION = "panch_project.asgi.application"
 
+
+# Настройка для канала (будет использовать Redis для управления каналами)
+# (можно позже адаптировать для других целей)
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],  # Порт Redis
+        },
+    },
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 

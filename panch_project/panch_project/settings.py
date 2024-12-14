@@ -41,9 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'configurations.apps.ConfigurationsConfig',
+    'channels', #add channels
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,7 +78,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'panch_project.wsgi.application'
-
+ASGI_APPLICATION = "panch_project.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

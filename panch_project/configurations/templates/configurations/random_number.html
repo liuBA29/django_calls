@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number</title>
+</head>
+<body>
+<h1>Real-Time Random Number</h1>
+<p id="number">Connecting...</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number</title>
+</head>
+<body>
+   <h1 id="app"><{{text}}/h1>
+       <script>
+    var socket = new WebSocket('ws://localhost:8000/ws/random-number/')
+    socket.onmessage = function(event){
+        var data = JSON.parse(event.data)
+        console.log(data)
+        document.querySelector('#app').innerText = data.message
+    }
+</script>
+</body>
+</html>
+
+

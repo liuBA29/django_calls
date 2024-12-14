@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e154405d-2825-4238-ac2c-b1e3e2afc024" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/consumer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/routing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/random_number.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/panch_project/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/panch_project/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/panch_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/panch_project/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,25 +32,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Python.active_calls.executor&quot;: &quot;Run&quot;,
-    &quot;Python.asterisk_connection.executor&quot;: &quot;Run&quot;,
-    &quot;Python.calling_number.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test3_my.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test4_my.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_my.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_my2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tests.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;true__true__work&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.active_calls.executor": "Run",
+    "Python.asterisk_connection.executor": "Run",
+    "Python.calling_number.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.test2.executor": "Run",
+    "Python.test3.executor": "Run",
+    "Python.test3_my.executor": "Run",
+    "Python.test4_my.executor": "Run",
+    "Python.test_my.executor": "Run",
+    "Python.test_my2.executor": "Run",
+    "Python.tests.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "856c347a"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="django_calls" />

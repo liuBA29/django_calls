@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e154405d-2825-4238-ac2c-b1e3e2afc024" name="Changes" comment="" />
+    <list default="true" id="e154405d-2825-4238-ac2c-b1e3e2afc024" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/consumer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/routing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/scripts/calling_number.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/scripts/calling_number.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/random_number.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/random_number.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/structure.txt" beforeDir="false" afterPath="$PROJECT_DIR$/structure.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -8,6 +8,8 @@ django_calls/               # Корневая папка проекта
 │   │   ├── admin.py        # Регистрация моделей в админке
 │   │   ├── apps.py         # Конфигурация приложения
 │   │   ├── forms.py        # Формы
+│   │   ├── routing.py        #
+│   │   ├── consumer.py        #
 │   │   ├── models.py       # Определение моделей "Клиент", "Карточка клиента" и "Запись звонка"
 │   │   ├── views.py        # Отображения (представления) для пользователей
 │   │   ├── urls.py         # Настройка маршрутизации внутри приложения
@@ -17,7 +19,9 @@ django_calls/               # Корневая папка проекта
 │   │   │       └── home.html
 │   │   │       └── client_list.html
 │   │   │       └── edit_client.html
+│   │   │       └── delete_client.html
 │   │   │       └── add_client.html
+│   │   │       └── random_number.html
 │   │   ├── scripts/      # scripts
 │   │   |   └── active_calls.py
 │   │   │   └── asterisk_connection.py

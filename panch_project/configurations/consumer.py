@@ -11,47 +11,33 @@ from .views import get_call_status
 from channels.db import database_sync_to_async
 from time import sleep
 
+import json
+from channels.generic.websocket import AsyncWebsocketConsumer
+
+
+import json
+from channels.generic.websocket import AsyncWebsocketConsumer
 
 class ActiveCallsConsumer(AsyncWebsocketConsumer):
-
-    # Подключение WebSocket
     async def connect(self):
-        self.room_name = "active_calls"  # Имя комнаты для всех подключенных клиентов
-        self.room_group_name = f"active_calls_{self.room_name}"
+        # Простой вывод в консоль
+        print("Попытка подключения WebSocket...")
 
-        # Присоединяемся к группе
-        await self.channel_layer.group_add(
-            self.room_group_name,
-            self.channel_name
-        )
+        # Принять соединение
+        await self.accept()
 
-        # Отправляем начальные данные о звонке
-        call_status = await self.get_call_status()
-        await self.send(text_data=json.dumps(call_status))
+        # Теперь безопасно отправить сообщение
+        await self.send(text_data=json.dumps({
+            'message': 'Connection successful!'
+        }))
 
-    # Отключение WebSocket
     async def disconnect(self, close_code):
-        # Удаляем клиента из группы
-        await self.channel_layer.group_discard(
-            self.room_group_name,
-            self.channel_name
-        )
+        # Логирование отключения
+        print("WebSocket disconnected!")
 
-    # Получение состояния звонка
-    async def get_call_status(self):
-        # Получаем данные о текущем звонке
-        call_status = await database_sync_to_async(get_call_status)(None)
-        call_data = call_status.content.decode("utf-8")
-        return json.loads(call_data)
-
-    # Получение сообщений от WebSocket
     async def receive(self, text_data):
+        # Здесь можно обработать входящие сообщения, но для простоты это пусто
         pass
-
-    # Получение обновлений для всех клиентов в группе
-    async def send_update(self, event):
-        # Отправляем обновления всем подключенным клиентам
-        await self.send(text_data=json.dumps(event["message"]))
 
 
 

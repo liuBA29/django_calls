@@ -1,7 +1,9 @@
 #consumer.py
 
 import asyncio
-from channels.generic.websocket import  WebsocketConsumer, AsyncWebsocketConsumer
+from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
+from .scripts.asterisk_connection import AsteriskConnection
+from decouple import config
 from random import randint
 from asgiref.sync import sync_to_async
 from django.http import JsonResponse
@@ -12,6 +14,48 @@ from time import sleep
 from channels.layers import get_channel_layer
 import json
 
+
+# Параметры подключения к Asterisk
+host = config('ASTERISK_HOST')
+port = config('ASTERISK_PORT', cast=int, default=22)
+username = config('ASTERISK_USERNAME')
+password = config('ASTERISK_PASSWORD')
+
+
+import json
+from channels.generic.websocket import AsyncWebsocketConsumer
+
+class CallStatusConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        self.room_group_name = 'call_status'
+
+        # Проверяем состояние соединения с Asterisk
+        self.is_connected = await self.check_asterisk_connection()
+
+        # Принимаем соединение
+        await self.accept()
+
+        # Отправляем текущий статус соединения
+        await self.send_connection_status()
+
+    async def disconnect(self, close_code):
+        # Логика отключения, если потребуется
+        pass
+
+    async def receive(self, text_data):
+        # Получаем данные от клиента, если нужно
+        pass
+
+    async def send_connection_status(self):
+        # Отправляем статус соединения в клиент
+        await self.send(text_data=json.dumps({
+            'is_connected': self.is_connected
+        }))
+
+    async def check_asterisk_connection(self):
+        # Ваша логика проверки соединения с Asterisk
+        # Вернем True, если подключение успешно, или False, если нет
+        return True  # Для примера, замените на реальную проверку
 
 
 class SimpleWebSocketConsumer(AsyncWebsocketConsumer):

@@ -1,0 +1,36 @@
+<!--call_status.html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Call Status</title>
+</head>
+<body>
+    <h1>WebSocket Connection Status</h1>
+    <div id="output"></div>
+<div id="asterisk-status" style="color: white; padding: 10px; position: fixed; top: 10px; right: 10px; background-color: gray;">
+    Checking connection...
+</div>
+    <script>
+        // Подключаемся к WebSocket
+var socket = new WebSocket('ws://127.0.0.1:8000/ws/call-status/');
+
+// Обрабатываем сообщения от WebSocket
+socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+
+    // Проверяем состояние соединения
+    if (data.is_connected) {
+        document.getElementById('asterisk-status').innerHTML = 'Connected to Asterisk!';
+        document.getElementById('asterisk-status').style.backgroundColor = 'green';  // Зеленый цвет
+    } else {
+        document.getElementById('asterisk-status').innerHTML = 'Failed to connect to Asterisk!';
+        document.getElementById('asterisk-status').style.backgroundColor = 'gray';  // Серый цвет
+    }
+};
+
+    </script>
+</body>
+</html>

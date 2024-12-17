@@ -25,11 +25,19 @@
             outputDiv.innerHTML += "<p>Соединение установлено!</p>";
         };
 
-        // Получение сообщения от сервера
+                // Получение сообщения от сервера
         socket.onmessage = (event) => {
-            console.log("Сообщение от сервера:", event.data);
-            outputDiv.innerHTML += `<p>${event.data}</p>`;
+        console.log("Сообщение от сервера:", event.data);
+
+                // Парсим JSON-данные, полученные от сервера
+        const data = JSON.parse(event.data);
+
+                // Добавляем сообщение на страницу
+        const newMessage = document.createElement("p");
+        newMessage.textContent = data.message;
+        outputDiv.appendChild(newMessage);
         };
+
 
         // Ошибка
         socket.onerror = (error) => {

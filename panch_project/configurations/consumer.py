@@ -6,17 +6,12 @@ from random import randint
 from asgiref.sync import sync_to_async
 from django.http import JsonResponse
 from configurations.views import *
-import json
 from .views import get_call_status
 from channels.db import database_sync_to_async
 from time import sleep
-
+from channels.layers import get_channel_layer
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer
 
-
-import json
-from channels.generic.websocket import AsyncWebsocketConsumer
 
 
 class SimpleWebSocketConsumer(AsyncWebsocketConsumer):
@@ -25,8 +20,14 @@ class SimpleWebSocketConsumer(AsyncWebsocketConsumer):
         await self.accept()
         print("WebSocket подключен!")
 
+        # Запускаем периодическую отправку данных
+        #self.send_task = asyncio.create_task(self.send_data_periodically())
+
     async def disconnect(self, close_code):
-        # Логирование отключения
+        # Завершаем задачу при отключении
+        if hasattr(self, 'send_task'):
+            self.send_task.cancel()
+            await asyncio.gather(self.send_task, return_exceptions=True)
         print("WebSocket отключен!")
 
     async def receive(self, text_data):

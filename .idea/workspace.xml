@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e154405d-2825-4238-ac2c-b1e3e2afc024" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/test_socket.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/panch_project/configurations/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/consumer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/routing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/test3.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/test3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/panch_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/panch_project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/structure.txt" beforeDir="false" afterPath="$PROJECT_DIR$/structure.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/test_socket.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/test_socket.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

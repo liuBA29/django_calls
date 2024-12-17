@@ -18,6 +18,34 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+
+class SimpleWebSocketConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        # Принимаем WebSocket-соединение
+        await self.accept()
+        print("WebSocket подключен!")
+
+    async def disconnect(self, close_code):
+        # Логирование отключения
+        print("WebSocket отключен!")
+
+    async def receive(self, text_data):
+        # Получаем сообщение от клиента
+        print(f"Сообщение от клиента: {text_data}")
+        await self.send(text_data=json.dumps({
+            'message': 'Сообщение получено сервером'
+        }))
+
+    async def send_data_periodically(self):
+        # Периодически отправляем данные клиенту
+        while True:
+            await self.send(text_data=json.dumps({
+                'message': 'Привет! Это сервер :)'
+            }))
+            await asyncio.sleep(3)  # Каждые 3 секунды отправляем сообщение
+
+
+
 class ActiveCallsConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # Простой вывод в консоль

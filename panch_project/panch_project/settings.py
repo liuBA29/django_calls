@@ -64,7 +64,7 @@ ROOT_URLCONF = 'panch_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'panch_project/configurations/templates'],  # Добавьте этот путь
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

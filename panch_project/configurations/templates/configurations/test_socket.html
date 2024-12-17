@@ -1,0 +1,56 @@
+<!--test_socket.html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Example</h1>
+    <div id="output"></div>
+    <input type="text" id="input" placeholder="Введите сообщение">
+    <button id="sendBtn">Отправить</button>
+
+    <script>
+        const socket = new WebSocket('ws://127.0.0.1:8000/ws/test-socket/');
+        const outputDiv = document.getElementById('output');
+        const inputField = document.getElementById('input');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // Открытое соединение
+        socket.onopen = () => {
+            console.log("Соединение открыто!");
+            outputDiv.innerHTML += "<p>Соединение установлено!</p>";
+        };
+
+        // Получение сообщения от сервера
+        socket.onmessage = (event) => {
+            console.log("Сообщение от сервера:", event.data);
+            outputDiv.innerHTML += `<p>${event.data}</p>`;
+        };
+
+        // Ошибка
+        socket.onerror = (error) => {
+            console.error("Ошибка WebSocket:", error);
+            outputDiv.innerHTML += "<p>Ошибка подключения!</p>";
+        };
+
+        // Закрытие соединения
+        socket.onclose = () => {
+            console.log("Соединение закрыто!");
+            outputDiv.innerHTML += "<p>Соединение закрыто.</p>";
+        };
+
+        // Отправка сообщения
+        sendBtn.addEventListener('click', () => {
+            const message = inputField.value;
+            if (message) {
+                socket.send(message);
+                inputField.value = '';
+            }
+        });
+    </script>
+</body>
+</html>

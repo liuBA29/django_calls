@@ -21,6 +21,7 @@ django_calls/               # Корневая папка проекта
 │   │   │       └── edit_client.html
 │   │   │       └── delete_client.html
 │   │   │       └── add_client.html
+│   │   │       └── test_socket.html
 │   │   │       └── random_number.html
 │   │   ├── scripts/      # scripts
 │   │   |   └── active_calls.py

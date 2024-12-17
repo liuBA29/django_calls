@@ -21,6 +21,7 @@ urlpatterns = [
 
     path('random-number/', random_number_page, name='random_number'),
     path('active-calls/', active_calls_page, name='active-calls'),
+    path('test-socket/', lambda request: render(request, 'configurations/test_socket.html')),
 ]
 
 if settings.DEBUG:

@@ -53,9 +53,17 @@ class CallStatusConsumer(AsyncWebsocketConsumer):
         }))
 
     async def check_asterisk_connection(self):
-        # Ваша логика проверки соединения с Asterisk
-        # Вернем True, если подключение успешно, или False, если нет
-        return True  # Для примера, замените на реальную проверку
+        # Проверка соединения с Asterisk
+        try:
+            asterisk_conn = AsteriskConnection(host, port, username, password)
+            asterisk_conn.connect()
+            if asterisk_conn.check_connection():
+                asterisk_conn.close_connection()
+                return True
+        except Exception as e:
+            print(f"Error checking Asterisk connection: {e}")
+        return False
+
 
 
 class SimpleWebSocketConsumer(AsyncWebsocketConsumer):

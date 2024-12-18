@@ -187,8 +187,10 @@ def get_call_status(request):
     client = Client.objects.filter(contact_info__phone=calling_number).first()
     print(f"Найден клиент: {client.name if client else 'Не найден'}")  # Выводим имя клиента для отладки
 
+    is_active_call = bool(calling_number)
+
     response_data = {
-        'is_active_call': True,  # или ваша логика
+        'is_active_call': is_active_call,  # или ваша логика
         'calling_number': calling_number,
         'client_name': client.name if client else None,
     }

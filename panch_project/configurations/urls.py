@@ -23,6 +23,7 @@ urlpatterns = [
     path('active-calls/', active_calls_page, name='active-calls'),
     path('test-socket/', lambda request: render(request, 'configurations/test_socket.html')),
     path('call-status/', lambda request: render(request, 'configurations/call_status.html')),
+    path('call-status-page/', call_status_page, name='call_status_page'),
 ]
 
 

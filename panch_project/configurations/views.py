@@ -198,6 +198,11 @@ def get_call_status(request):
     return JsonResponse(response_data)
 
 
+def call_status_page(request):
+    return render(request, 'configurations/get_call_status.html')
+
+
+
 def random_number_page(request):
     context= {
         'text': "hello_world",

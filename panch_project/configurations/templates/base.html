@@ -1,4 +1,3 @@
-<!-- base.html -->
 {% load static %}
 
 <!DOCTYPE html>
@@ -8,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block title %}Base Title{% endblock %}</title>
-
-
 </head>
 <body>
     <header>
@@ -17,7 +14,6 @@
             <a href="{% url 'home' %}">Home</a> |
             <a href="{% url 'client_list' %}">Clients</a> |
             <a href="{% url 'call_list' %}">Call Records</a>
-
         </nav>
     </header>
 
@@ -28,34 +24,60 @@
 
         <!-- Блок уведомления о соединении с Asterisk -->
         {% if is_connected is not None %}
-    <div class="asterisk-status {% if is_connected %}success{% else %}failure{% endif %}">
-        {% if is_connected%}<div class="calling-info" style="display: none;"></div>
-            <p>Connected to Asterisk successfully!</p>
-            {% if is_active_call %}
-            <p>active call!</p>
-
-{%for n in calling_number%}
-        <p>{{n}}</p>
-        {%endfor%}
-        <p></p>
-            {%else%}
-            <p>no active call</p>
-            {%endif%}
-        {% else %}
-            <p>Connection to Asterisk failed :(</p>
+        <div class="asterisk-status {% if is_connected %}success{% else %}failure{% endif %}" id="asterisk-status">
+            {% if is_connected %}
+                <p>Connected to Asterisk successfully!</p>
+                {% if is_active_call %}
+                    <p>Active call!</p>
+                    <p>Calling number: {{ calling_number }}</p>
+                    <p>Client: {{ client_name }}</p>
+                {% else %}
+                    <p>No active call</p>
+                {% endif %}
+            {% else %}
+                <p>Connection to Asterisk failed :(</p>
+            {% endif %}
+        </div>
         {% endif %}
-    </div>
-{% endif %}
-
-
-
-
     </main>
 
     <footer>
         <p>&copy; 2024 My Django App</p>
     </footer>
-<!-- Подключаем JavaScript файл -->
 
+    <!-- JavaScript для обновления статуса каждые 3 секунды -->
+    <script>
+        async function fetchAsteriskStatus() {
+            try {
+                const response = await fetch('/get-call-status/');
+                const data = await response.json();
+
+                const asteriskStatusElement = document.getElementById('asterisk-status');
+
+                if (data.is_active_call) {
+                    asteriskStatusElement.innerHTML = `
+                        <p>Connected to Asterisk successfully!</p>
+                        <p>Active call!</p>
+                        <p>Calling number: ${data.calling_number}</p>
+                        <p>Client: ${data.client_name || "Unknown"}</p>
+                    `;
+                } else {
+                    asteriskStatusElement.innerHTML = `
+                        <p>Connected to Asterisk successfully!</p>
+                        <p>No active call</p>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error fetching Asterisk status:", error);
+                document.getElementById('asterisk-status').innerHTML = `<p>Connection to Asterisk failed :(</p>`;
+            }
+        }
+
+        // Обновляем статус каждые 3 секунды
+        setInterval(fetchAsteriskStatus, 3000);
+
+        // Загружаем статус сразу при открытии страницы
+        fetchAsteriskStatus();
+    </script>
 </body>
 </html>

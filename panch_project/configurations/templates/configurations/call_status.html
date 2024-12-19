@@ -29,6 +29,12 @@ socket.onmessage = function(event) {
         document.getElementById('asterisk-status').innerHTML = 'Failed to connect to Asterisk!';
         document.getElementById('asterisk-status').style.backgroundColor = 'gray';  // Серый цвет
     }
+    // Проверяем, есть ли активный звонок
+            if (data.is_active_call) {
+                document.getElementById('output').innerHTML = `Active call with ${data.client_name} (${data.calling_number})`;
+            } else {
+                document.getElementById('output').innerHTML = 'No active calls';
+            }
 };
 
     </script>

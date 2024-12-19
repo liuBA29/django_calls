@@ -36,7 +36,7 @@ class CallStatusConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
         # Отправляем текущий статус соединения
-        await self.send_connection_status()
+        await self.send_connection_status_update()
 
     async def disconnect(self, close_code):
         # Логика отключения, если потребуется
@@ -46,11 +46,31 @@ class CallStatusConsumer(AsyncWebsocketConsumer):
         # Получаем данные от клиента, если нужно
         pass
 
-    async def send_connection_status(self):
-        # Отправляем статус соединения в клиент
+    async def send_connection_status_update(self):
+        call_status = await self.get_active_call_status()
+
         await self.send(text_data=json.dumps({
-            'is_connected': self.is_connected
+            'is_connected': self.is_connected,
+            'is_active_call': call_status['is_active_call'],
+            'calling_number': call_status.get('calling_number'),
+            'client_name': call_status.get('client_name')
         }))
+
+    async def get_active_call_status(self):
+        """Логика для получения информации об активных звонках"""
+        # Используем вашу функцию для получения состояния активных звонков
+        active_calls = await database_sync_to_async(get_active_calls)()
+
+        if active_calls:
+            return {
+                'is_active_call': True,
+                'calling_number': active_calls['calling_number'],
+                'client_name': active_calls['client_name']
+            }
+        else:
+            return {
+                'is_active_call': False
+            }
 
     async def check_asterisk_connection(self):
         # Проверка соединения с Asterisk

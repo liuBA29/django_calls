@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.style.justifyContent = 'center';
     modal.style.alignItems = 'center';
     modal.style.textAlign = 'center';
-    modal.innerHTML = '<div style="position: relative; display: inline-block; max-width: 90%; max-height: 90%;">' +
-                        '<span id="closeModal" style="position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer;">&times;</span>' +
-                        '<img id="modalImage" style="max-width: 100%; max-height: 100%;" />' +
+    modal.innerHTML = '<div style="position: relative; display: inline-block; max-width: 30vw; max-height: 30vh;">' +
+                        '<span id="closeModal" style="position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer; overflow: auto;">&times;</span>' +
+                        '<img id="modalImage" style="max-width: 100%; max-height: 100%; object-fit: contain;" />' +
                      '</div>';
     document.body.appendChild(modal);
 

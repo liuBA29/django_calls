@@ -127,8 +127,8 @@ th {
 
 /* Модальное изображение */
 .modal-content {
-    max-width: 90%;
-    max-height: 80%;
+    max-width: 50vw; /* Максимальная ширина изображения - не больше половины ширины экрана */
+    max-height: 50vh; /* Максимальная высота изображения - не больше половины высоты экрана */
     margin: auto;
     display: block;
     border: 2px solid white;
@@ -154,6 +154,9 @@ th {
 }
 
 
+
+
+
 /* static/css/styles.css */
 .asterisk-status {
     position: fixed;
@@ -172,3 +175,13 @@ th {
 
 
 
+/*----- links a -/
+a {
+    color: #00796b; /* Тёмно-бирюзовый цвет ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+a:hover {
+    color: #004d40; /* Темный цвет при наведении */
+    text-decoration: underline; /* Подчеркивание при наведении */
+}

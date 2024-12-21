@@ -44,15 +44,10 @@
 <br>
 <a href="{% url 'add_client' %}">Add New Client</a>
 
-<!-- Modal for image preview -->
-<div id="imageModal" class="modal">
-    <span class="close" onclick="closeImageModal()">&times;</span>
-    <img class="modal-content" id="modalImage">
-    <div id="caption"></div>
-</div>
+
 
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/client_details.js' %}"></script>
 {% endblock %}

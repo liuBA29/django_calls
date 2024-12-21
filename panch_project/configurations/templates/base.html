@@ -1,3 +1,5 @@
+<!-- base.html -->
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -79,5 +81,8 @@
         // Загружаем статус сразу при открытии страницы
         fetchAsteriskStatus();
     </script>
+{% block extra_js %}
+    <!-- Дополнительные скрипты будут добавлены здесь -->
+    {% endblock %}
 </body>
 </html>

@@ -25,6 +25,8 @@
     <main>
         {% block content %}
         <h1>Client: {{ client.name }}</h1>
+        <button onclick="window.location.href='{% url 'client_list' %}'">Back to Client List</button>
+
         <p><strong>Email:</strong> {{ client.contact_info.email }}</p>
         <p><strong>Phone:</strong> {{ client.contact_info.phone }}</p>
         <p><strong>Address:</strong> {{ client.contact_info.address }}</p>
@@ -37,10 +39,11 @@
         {% endif %}
         {% endblock %}
 
-        <br>
-        <a href="{% url 'client_list' %}">Back to Client List</a>
-    </main>
+        <br><br>
 
+
+    </main>
+<br>
     <footer>
         <p>&copy; 2024 My Django App</p>
     </footer>

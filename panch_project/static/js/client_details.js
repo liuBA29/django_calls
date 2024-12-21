@@ -1,3 +1,6 @@
+
+//client_details.js
+
 document.addEventListener('DOMContentLoaded', function() {
     // Находим все изображения клиентов
     const clientImages = document.querySelectorAll('img');

@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
     modal.style.zIndex = '1000';
     modal.style.justifyContent = 'center';
-    modal.style.alignItems = 'center';
+    modal.style.alignItems = 'flex-start';
+    modal.style.paddingTop = '10vh'; // Добавляет отступ сверху
     modal.style.textAlign = 'center';
     modal.innerHTML = '<div style="position: relative; display: inline-block; max-width: 30vw; max-height: 30vh;">' +
                         '<span id="closeModal" style="position: absolute; top: 10px; right: 20px; font-size: 30px; color: white; cursor: pointer; overflow: auto;">&times;</span>' +

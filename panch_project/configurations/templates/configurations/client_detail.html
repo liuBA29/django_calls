@@ -32,8 +32,11 @@
         <p><strong>Address:</strong> {{ client.contact_info.address }}</p>
 
         {% if client.image %}
-        <h2>Client Image</h2>
-        <img src="{{ client.image.url }}" alt="{{ client.name }}" width="200">
+
+            <div class="client-image-container">
+                <h2>Client Image</h2>
+        <img src="{{ client.image.url }}" alt="{{ client.name }}" class="client-image" width="200">
+            </div>
         {% else %}
         <p>No image available</p>
         {% endif %}

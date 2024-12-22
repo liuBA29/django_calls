@@ -1,4 +1,4 @@
-<!-- client_list.html -->
+<!--client_list.html -->
 
 {% extends 'base.html' %}
 {% load static %} <!-- Добавьте эту строку -->
@@ -25,6 +25,7 @@
             <td><a href="{% url 'client_detail' client.pk %}" target="_blank">{{ client.name }}</a></td>
             <td>{{ client.contact_info.phone }}</td>
             <td>{{ client.contact_info.email }}</td>
+
             <td>
                 {% if client.image %}
                     <img src="{{ client.image.url }}" alt="{{ client.name }}" width="50" height="50" class="thumbnail" onclick="openImageModal('{{ client.image.url }}')">
@@ -38,6 +39,7 @@
             </td>
         </tr>
         {% endfor %}
+
     </tbody>
 </table>
 

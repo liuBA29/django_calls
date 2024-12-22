@@ -22,6 +22,11 @@
     <main>
         {% block content %}
         <!-- Контент каждой страницы -->
+
+
+
+
+
         {% endblock %}
 
         <!-- Блок уведомления о соединении с Asterisk -->
@@ -34,6 +39,7 @@
                     <p>Calling number: {{ calling_number }}</p>
                     <p>Client: {{ client_name }}</p>
                         {% if client_image %}
+            <p>foto есть</p>
                              <img id="client-image" src="{{ client_image }}" alt="Client image" style="max-width: 200px; height: auto;">
                 {% else %}
                             <p>No image</p>
@@ -83,6 +89,9 @@
                     <p>Active call!</p>
                     <p>Calling number: ${data.calling_number}</p>
                     <p>Client: ${data.client_name || "Unknown"}</p>
+                    <p>${data.client_image ? `<img src="${data.client_image}" alt="Client photo" width="150">` : "No photo"}</p>
+
+
                 `;
 
 

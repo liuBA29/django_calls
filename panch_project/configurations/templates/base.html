@@ -33,6 +33,11 @@
                     <p>Active call!</p>
                     <p>Calling number: {{ calling_number }}</p>
                     <p>Client: {{ client_name }}</p>
+                        {% if client_image %}
+                             <img id="client-image" src="{{ client_image }}" alt="Client image" style="max-width: 200px; height: auto;">
+                {% else %}
+                            <p>No image</p>
+                        {% endif %}
                 {% else %}
                     <p>No active call</p>
                 {% endif %}
@@ -49,37 +54,60 @@
 
     <!-- JavaScript для обновления статуса каждые 3 секунды -->
     <script>
-        async function fetchAsteriskStatus() {
-            try {
-                const response = await fetch('/get-call-status/');
-                const data = await response.json();
 
-                const asteriskStatusElement = document.getElementById('asterisk-status');
+    const asteriskStatusElement = document.getElementById('asterisk-status');
+    const clientImageElement = document.getElementById('client-image');
+    let fetchController = null;
 
-                if (data.is_active_call) {
-                    asteriskStatusElement.innerHTML = `
-                        <p>Connected to Asterisk successfully!</p>
-                        <p>Active call!</p>
-                        <p>Calling number: ${data.calling_number}</p>
-                        <p>Client: ${data.client_name || "Unknown"}</p>
-                    `;
-                } else {
-                    asteriskStatusElement.innerHTML = `
-                        <p>Connected to Asterisk successfully!</p>
-                        <p>No active call</p>
-                    `;
-                }
-            } catch (error) {
-                console.error("Error fetching Asterisk status:", error);
-                document.getElementById('asterisk-status').innerHTML = `<p>Connection to Asterisk failed :(</p>`;
-            }
+    async function fetchAsteriskStatus() {
+        // Отменяем предыдущий запрос, если он еще выполняется
+        if (fetchController) {
+            fetchController.abort();
         }
 
-        // Обновляем статус каждые 3 секунды
-        setInterval(fetchAsteriskStatus, 3000);
+        fetchController = new AbortController();
+        const signal = fetchController.signal;
 
-        // Загружаем статус сразу при открытии страницы
-        fetchAsteriskStatus();
+        try {
+            const response = await fetch('/get-call-status/', { signal });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.is_active_call) {
+                asteriskStatusElement.innerHTML = `
+                    <p>Connected to Asterisk successfully!</p>
+                    <p>Active call!</p>
+                    <p>Calling number: ${data.calling_number}</p>
+                    <p>Client: ${data.client_name || "Unknown"}</p>
+                `;
+
+
+            } else {
+                asteriskStatusElement.innerHTML = `
+                    <p>Connected to Asterisk successfully!</p>
+                    <p>No active call</p>
+                `;
+            }
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                console.log('Previous request aborted');
+            } else {
+                console.error("Error fetching Asterisk status:", error);
+                asteriskStatusElement.innerHTML = `<p>Connection to Asterisk failed :(</p>`;
+            }
+        }
+    }
+
+    // Обновляем статус каждые 3 секунды, используя setInterval
+    setInterval(fetchAsteriskStatus, 3000);
+
+    // Загружаем статус сразу при открытии страницы
+    fetchAsteriskStatus();
+
     </script>
 {% block extra_js %}
     <!-- Дополнительные скрипты будут добавлены здесь -->

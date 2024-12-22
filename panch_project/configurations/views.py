@@ -58,10 +58,15 @@ def home(request):
     is_active_call = get_active_calls()
     clients = Client.objects.all()
 
+    # including client images if available
+    for client in clients:
+        client.image_url = client.image.url if client.image else None
+
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
         'calling_number': calling_number,
+        'clients': clients,
     }
     return render(request, 'configurations/home.html', context)
 
@@ -73,6 +78,9 @@ def client_list(request):
     is_connected = get_asterisk_connection_status()
     is_active_call = get_active_calls()
     clients = Client.objects.all()
+    for client in clients:
+        client.image_url = client.image.url if client.image else None
+
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
@@ -118,6 +126,7 @@ def edit_client(request, pk):
         'form': form,
         'is_connected': is_connected,
         'is_active_call': is_active_call,
+        'clients': clients,
         'client': client,
     }
     return render(request, 'configurations/edit_client.html', context)
@@ -134,6 +143,7 @@ def delete_client(request, pk):
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
+        'clients':clients,
         'client': client,
     }
     return render(request, 'configurations/delete_client.html', context)
@@ -147,6 +157,7 @@ def client_detail(request, pk):
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
+        'clients': clients,
         'client': client,
     }
     return render(request, 'configurations/client_detail.html', context)
@@ -160,6 +171,7 @@ def call_list(request):
     context = {
         'is_connected': is_connected,
         'is_active_call': is_active_call,
+        'clients': clients,
     }
     return render(request, 'configurations/call_list.html', context)
 
@@ -193,6 +205,7 @@ def get_call_status(request):
         'is_active_call': is_active_call,  # или ваша логика
         'calling_number': calling_number,
         'client_name': client.name if client else None,
+        'client_image': client.image.url if client and client.image else None,  # Include the image URL
     }
 
     return JsonResponse(response_data)

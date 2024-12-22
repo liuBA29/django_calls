@@ -13,30 +13,30 @@
 <div id="asterisk-status" style="color: white; padding: 10px; position: fixed; top: 10px; right: 10px; background-color: gray;">
     Checking connection...
 </div>
-    <script>
-        // Подключаемся к WebSocket
-var socket = new WebSocket('ws://127.0.0.1:8000/ws/call-status/');
+<script>
+    // Подключаемся к WebSocket
+    var socket = new WebSocket('ws://127.0.0.1:8000/ws/call-status/');
 
-// Обрабатываем сообщения от WebSocket
-socket.onmessage = function(event) {
-    const data = JSON.parse(event.data);
+    // Обрабатываем сообщения от WebSocket
+    socket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
 
-    // Проверяем состояние соединения
-    if (data.is_connected) {
-        document.getElementById('asterisk-status').innerHTML = 'Connected to Asterisk!';
-        document.getElementById('asterisk-status').style.backgroundColor = 'green';  // Зеленый цвет
-    } else {
-        document.getElementById('asterisk-status').innerHTML = 'Failed to connect to Asterisk!';
-        document.getElementById('asterisk-status').style.backgroundColor = 'gray';  // Серый цвет
-    }
-    // Проверяем, есть ли активный звонок
-            if (data.is_active_call) {
-                document.getElementById('output').innerHTML = `Active call with ${data.client_name} (${data.calling_number})`;
-            } else {
-                document.getElementById('output').innerHTML = 'No active calls';
-            }
-};
+        // Проверяем состояние соединения
+        if (data.is_connected && data.is_active_call) {
+            // Подключено к Asterisk и есть активный звонок
+            document.getElementById('asterisk-status').innerHTML = `Connected to Asterisk!<br>Active call with ${data.client_name} (${data.calling_number})`;
+            document.getElementById('asterisk-status').style.backgroundColor = 'green'; // Зеленый цвет
+        } else if (data.is_connected && !data.is_active_call) {
+            // Подключено к Asterisk, но активных звонков нет
+            document.getElementById('asterisk-status').innerHTML = 'Connected to Asterisk!<br>No active calls';
+            document.getElementById('asterisk-status').style.backgroundColor = 'green'; // Зеленый цвет
+        } else {
+            // Не удалось подключиться к Asterisk
+            document.getElementById('asterisk-status').innerHTML = 'Failed to connect to Asterisk!';
+            document.getElementById('asterisk-status').style.backgroundColor = 'gray'; // Серый цвет
+        }
+    };
+</script>
 
-    </script>
 </body>
 </html>

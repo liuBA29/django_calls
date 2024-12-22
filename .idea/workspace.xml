@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e154405d-2825-4238-ac2c-b1e3e2afc024" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/client_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/client_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/panch_project/static/js/client_details.js" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/static/js/client_details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/call_status.html" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/templates/configurations/call_status.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panch_project/configurations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/panch_project/configurations/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

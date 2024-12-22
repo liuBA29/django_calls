@@ -125,34 +125,6 @@ th {
     text-align: center;
 }
 
-/* Модальное изображение */
-.modal-content {
-    max-width: 50vw; /* Максимальная ширина изображения - не больше половины ширины экрана */
-    max-height: 50vh; /* Максимальная высота изображения - не больше половины высоты экрана */
-    margin: auto;
-    display: block;
-    border: 2px solid white;
-}
-
-/* Закрытие кнопки */
-.close {
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 
 
 

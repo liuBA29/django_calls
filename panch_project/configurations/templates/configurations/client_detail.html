@@ -36,13 +36,16 @@
             <div class="client-image-container">
                 <h2>Client Image</h2>
         <img src="{{ client.image.url }}" alt="{{ client.name }}" class="client-image" width="200">
+                <a href="{% url 'edit_client' client.pk %}">Edit</a> /
+                <a href="{% url 'delete_client' client.pk %}">Delete</a>
+            <br>
             </div>
         {% else %}
         <p>No image available</p>
         {% endif %}
         {% endblock %}
 
-        <br><br>
+
 
 
     </main>
@@ -52,7 +55,7 @@
     </footer>
 
     {% block extra_js %}
-    <script src="{% static 'js/client_details.js' %}"></script>
+    <script src="{% static 'js/modals.js' %}"></script>
     {% endblock %}
 </body>
 </html>

@@ -8,7 +8,7 @@ from django.conf import settings
 
 from django.contrib import messages
 from django.http import JsonResponse
-
+from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from configurations.models import *
 from .forms import ClientForm
@@ -201,11 +201,15 @@ def get_call_status(request):
 
     is_active_call = bool(calling_number)
 
+    client_url = reverse('client_detail', kwargs={'pk': client.pk}) if client else None
+
     response_data = {
         'is_active_call': is_active_call,  # или ваша логика
         'calling_number': calling_number,
         'client_name': client.name if client else None,
-        'client_image': client.image.url if client and client.image else None,  # Include the image URL
+        'client_image': client.image.url if client and client.image else None,
+        'client_url': client_url,  # URL для карточки клиента
+
     }
 
     return JsonResponse(response_data)

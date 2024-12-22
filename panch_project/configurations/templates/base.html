@@ -90,8 +90,7 @@
                     <p>Calling number: ${data.calling_number}</p>
                     <p>Client: ${data.client_name || "Unknown"}</p>
                     <p>${data.client_image ? `<img src="${data.client_image}" alt="Client photo" width="150">` : "No photo"}</p>
-
-
+                    <p>${data.client_url ? `<a href="${data.client_url}" target="_blank">Open Client Card</a>` : "No client card available"}</p>
                 `;
 
 

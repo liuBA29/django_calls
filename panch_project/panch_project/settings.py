@@ -28,11 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='temporary-key-for-local-use')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['pancrm.web.cloudcenter.ovh', 'www.pancrm.web.cloudcenter.ovh', '192.168.4.74']
 
 # Application definition
 
@@ -100,7 +100,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / config('DATABASE_NAME' , 'db.sqlite3'),
+        'NAME': BASE_DIR / config('DATABASE_NAME', 'db.sqlite3'),
     }
 }
 
@@ -148,6 +148,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
